@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      h1 {
+        text-align: center;
+      }
+      .body {
+        margin: auto;
+        width: max-content;
+        padding: 0;
+      }
+      h3 {
+        text-align: center;
+      }
+    </style>
+    <title>Lalu Shortner</title>
+  </head>
+  <body>
+    <h1>Lalu Shortner</h1>
+    <div class="body">
+      <input type="text" class="url" />
+      <button class="shorten">Go</button>
+    </div>
+    <h3 class="short-url"><%= shortURL %></h3>
+    <script>
+      // JavaScript to handle the "Go" button click
+      const shortenButton = document.querySelector(".shorten");
+      const urlInput = document.querySelector(".url");
+      const shortUrlElement = document.querySelector(".short-url");
+
+      shortenButton.addEventListener("click", async () => {
+        const originalURL = urlInput.value;
+        const response = await fetch("/shorten", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ originalURL }),
+        });
+
+        const data = await response.json();
+        shortUrlElement.textContent = data.shortURL;
+      });
+    </script>
+  </body>
+</html>
+x
