@@ -24,7 +24,7 @@ const URL = mongoose.model('url', urlSchema);
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
     res.render('index.ejs', { shortURL: '' });
 });
 
