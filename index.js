@@ -1,11 +1,12 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import { nanoid } from 'nanoid';
+import 'dotenv/config'
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.port;
 
-mongoose.connect("mongodb://0.0.0.0:27017/lalu", {
+mongoose.connect(process.env.mongodbConnect, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => {
@@ -16,7 +17,7 @@ mongoose.connect("mongodb://0.0.0.0:27017/lalu", {
 
 const urlSchema = new mongoose.Schema({
     originalURL: { type: String, unique: true },
-    shortURL: String,
+    shortURL: { type: String, unique: true },
 });
 
 const URL = mongoose.model('url', urlSchema);
