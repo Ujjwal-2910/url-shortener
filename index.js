@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { nanoid } from 'nanoid';
 import 'dotenv/config'
+import product from './api/product.js';
 
 const app = express();
 const PORT = process.env.port;
@@ -22,7 +23,8 @@ const urlSchema = new mongoose.Schema({
 
 const URL = mongoose.model('url', urlSchema);
 
-app.use(express.json());
+app.use(express.json({ extended: false }));
+app.use("/api/product", product);
 
 app.get('/', (req, res) => {
     res.render('index.ejs', { shortURL: '' });
